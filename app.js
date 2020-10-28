@@ -25,6 +25,9 @@ app.get('/', async (req, res) => {
 		const results = { 'results': (result) ? result.rows : null};
 		console.log(results);
 		// res.render('index', results );
+		res.setHeader('Access-Control-Allow-Origin', '*');
+    	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
 		res.status(200).json(results)
 		client.release();
 	} catch (err) {
