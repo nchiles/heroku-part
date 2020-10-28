@@ -1,11 +1,10 @@
-
 const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000;
-
 const { Pool } = require('pg');
+
 const pool = new Pool({
 	connectionString: process.env.DATABASE_URL,
 	ssl: {
@@ -25,7 +24,8 @@ app.get('/', async (req, res) => {
 		const result = await client.query('SELECT * FROM winners_table');
 		const results = { 'results': (result) ? result.rows : null};
 		console.log(results);
-		res.render('index', results );
+		// res.render('index', results );
+		res.status(200).json(results.rows)
 		client.release();
 	} catch (err) {
 		console.error(err);
