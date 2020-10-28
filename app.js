@@ -25,7 +25,7 @@ app.get('/', async (req, res) => {
 		const results = { 'results': (result) ? result.rows : null};
 		console.log(results);
 		// res.render('index', results );
-		res.status(200).json(results.rows)
+		res.status(200).json(results)
 		client.release();
 	} catch (err) {
 		console.error(err);
