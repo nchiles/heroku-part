@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
     	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 		
-		res.status(200).json("results");
+		res.status(200).json(results);
 		console.log(results);
 		client.release();
 	} catch (err) {
