@@ -24,28 +24,18 @@ app.get('/', async (req, res) => {
 		const client = await pool.connect();
 		const result = await client.query('SELECT * FROM winners_table');
 		const results = { 'results': (result) ? result.rows : null};
+		//cors
+		res.setHeader('Access-Control-Allow-Origin', '*'); // allows access from all sites
+    	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+		
+		res.status(200).json(results);
 		console.log(results);
-		res.setHeader('Access-Control-Allow-Origin', '*');
-    	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-    	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
-		res.status(200).json(results)
 		client.release();
 	} catch (err) {
 		console.error(err);
 		res.send("Error " + err);
 	}
-})
-
-app.post('/', (req, res) => {
-	const text = 'INSERT INTO winners_table(name, prize) VALUES($1, $2)'
-	const values = [req.body.name, req.body.prize];
-
-	pool.query(text, values, (error, results) => {
-		if (error) {
-			throw error
-		}
-		res.redirect('back');
-	})
 })
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))
