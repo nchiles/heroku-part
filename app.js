@@ -1,23 +1,13 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const bodyParser = require('body-parser')
-
 const PORT = process.env.PORT || 5000;
 const { Pool } = require('pg');
-
 const pool = new Pool({
 	connectionString: process.env.DATABASE_URL,
 	ssl: {
 		rejectUnauthorized: false
 	}
 });
-
-app.use(express.static(path.join(__dirname, '/')))
-app.use(bodyParser.urlencoded({ extended: true }))
-app.set('views', path.join(__dirname, '/'))
-app.set('view engine', 'ejs')
-
 
 app.get('/', async (req, res) => {
 	try {
@@ -29,7 +19,7 @@ app.get('/', async (req, res) => {
     	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 		
-		res.status(200).json(results);
+		res.status(200).json("results");
 		console.log(results);
 		client.release();
 	} catch (err) {
