@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser')
+
 const PORT = process.env.PORT || 5000;
 const { Pool } = require('pg');
 
@@ -24,7 +25,6 @@ app.get('/', async (req, res) => {
 		const result = await client.query('SELECT * FROM winners_table');
 		const results = { 'results': (result) ? result.rows : null};
 		console.log(results);
-		// res.render('index', results );
 		res.setHeader('Access-Control-Allow-Origin', '*');
     	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
     	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
